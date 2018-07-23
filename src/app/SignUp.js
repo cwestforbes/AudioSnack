@@ -36,11 +36,14 @@ export class SignUp extends Component {
       );
   };
 
-  onPressUpload() {
+  async onPressUpload() {
     let newState = Object.assign({}, this.state.Email, this.state.Username, this.state.Password);
     let imageName = v4();
-    let storageRef = firebase.storage().ref(`${imageName}`);
-    storageRef.put(blob, metadata).then(result => {
+    const response = await fetch(this.state.image);
+    const blob = await response.blob();
+    // var ref = firebase.storage().ref().child("images/" + imageName);
+    let storageRef = firebase.storage().ref().child(`profileImages/${imageName}`);
+    storageRef.put(blob).then(result => {
       storageRef.getDownloadURL().then(imgUrl => {
         firebase
           .auth()
