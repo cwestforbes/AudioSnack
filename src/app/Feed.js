@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontFamily: 'HelveticaNeue-CondensedBold',
-    textTransform: 'uppercase',
     color: '#9f9f9f'
   },
   feedContainer: {

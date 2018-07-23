@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 48,
     fontFamily: 'HelveticaNeue-CondensedBold',
-    textTransform: 'uppercase',
     color: '#9f9f9f'
   },
 

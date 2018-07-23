@@ -93,11 +93,15 @@ uploadImage = async (uri, imageName) => {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Button title="Choose image..." onPress={this.onChooseImagePress} />
-      </View>
-    );
+    if (!this.state.isAuthenticationReady) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    } else {
+      return <View style={{ flex: 1 }}>{this.state.isAuthenticated ? <MainScreenNavigator /> : <SignInStack />}</View>;
+    }
   }
 }
 
