@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import Expo, {Permissions} from 'expo';
 
 export class Record extends Component {
   constructor() {
@@ -11,6 +12,13 @@ export class Record extends Component {
     tabBarIcon: ({ tintColor }) => <Image source={require('./../../public/img/addRecordIcon.png')} style={{ width: 27, height: 27 }} />
   };
 
+  getRecordPermissions = async () => {
+    const { Permissions } = Expo;
+    const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    if (status !== 'granted') {
+      alert('Audio Recording enabled');
+    }
+  }
 
   render() {
     return (
