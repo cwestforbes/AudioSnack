@@ -3,7 +3,6 @@ import { ActivityIndicator, Image, View, StyleSheet, Text, TextInput, TouchableO
 import * as firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
 import { v4 } from 'uuid';
-import { RNS3 } from 'react-native-aws3';
 
 export class SignUp extends Component {
   constructor() {

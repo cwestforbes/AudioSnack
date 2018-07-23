@@ -1,8 +1,42 @@
 import React from 'react';
 import FirebaseKeys from './firebaseConfig';
 import * as firebase from 'firebase';
-import { Image, StyleSheet, Button, Text, View, Alert, } from 'react-native';
+import { Image, StyleSheet, Button, Text, View, Alert, ActivityIndicator } from 'react-native';
 import { ImagePicker } from 'expo';
+import MainScreenNavigator from './MainScreenNavigator';
+import { createBottomTabNavigator, StackNavigator, NavigationActions } from 'react-navigation';
+import { SignUp } from './src/app/SignUp';
+import { SignIn } from './src/app/SignIn';
+
+const SignInStack = StackNavigator(
+  {
+    SignUp: {
+      screen: SignUp,
+      navigationOptions: ({ navigation }) => ({
+        header: null
+      })
+    },
+    SignIn: {
+      screen: SignIn,
+      navigationOptions: ({ navigation }) => ({
+        header: null
+      })
+    },
+    Main: {
+      screen: MainScreenNavigator,
+      navigationOptions: ({ navigation }) => ({
+        title: 'AudioApp',
+        headerLeft: null
+      })
+    }
+  },
+  { headerMode: 'screen' }
+);
+
+SignInStack.navigationOptions = {
+  tabBarLabel: 'Home',
+  tabBarIcon: ({ tintColor }) => <Image source={require('./public/img/homeIcon.png')} style={{ width: 25, height: 25 }} />
+};
 
 async function allowCameraRoll() {
   const { Permissions } = Expo;
