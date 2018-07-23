@@ -11,7 +11,9 @@ export class Profile extends Component {
       email: '',
       profileImgUrl: '',
       clips: 0,
-      fetchIsReady: false
+      following: 0,
+      followers: 0,
+      fetchIsReady: false,
     };
   }
 
@@ -89,11 +91,11 @@ export class Profile extends Component {
             </View>
             <View style={styles.social}>
               <View style={styles.socialText}>
-                <Text>120</Text>
+                <Text>{this.state.followers}</Text>
                 <Text>Followers</Text>
               </View>
               <View style={styles.socialText}>
-                <Text>56</Text>
+                <Text>{this.state.following}</Text>
                 <Text>Following</Text>
               </View>
               <View style={styles.socialText}>
