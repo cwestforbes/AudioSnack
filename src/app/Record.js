@@ -1,6 +1,35 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import Expo, {Permissions} from 'expo';
+import {duration} from 'moment';
+
+const convertDurationToStr = (ms) => {
+  const hoursInMs = duration(ms).hours();
+  const minutesInMs = duration(ms).minutes();
+  const secondsInMs = duration(ms).seconds();
+
+  let hourStr = '';
+  let minuteStr = '';
+  let secondStr = '';
+
+  if (hoursInMs !== 0) {
+    hourStr = `${hoursInMs}`;
+  }
+
+  if (minutesInMs < 10) {
+    minuteStr = `0${minutesInMs}`;
+  } else {
+    minuteStr = `${minutesInMs}`
+  }
+
+  if (secondsInMs < 10) {
+    secondStr = `0${secondsInMs}`;
+  } else {
+    secondStr = `${secondsInMs}`
+  }
+
+  return `${hourStr}:${minuteStr}:${secondStr}`;
+};
 
 export class Record extends Component {
   constructor() {
@@ -44,7 +73,12 @@ export class Record extends Component {
               }}>
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
             </TouchableOpacity>
-          ) : ( <TouchableOpacity onPress={() => {alert('changeClicked')}}>
+          ) : ( <TouchableOpacity
+                  onPress={() => {this.setState({
+                    isRecording: false});
+                    alert('Recording Stopped')
+                    console.log(this.state)
+                }}>
                   <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
                   </ImageBackground>
