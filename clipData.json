@@ -1,0 +1,24 @@
+{
+  "clips": [
+    {
+      "imageUrl":
+        "https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2018%2F06%2Fdrake-scorpion-album-cover-release-date-1.jpg?q=75&w=485&cbr=1&fit=max",
+      "name": "AudioFile",
+      "likes": 32,
+      "id": 1
+    },
+    {
+      "imageUrl":
+        "https://d2s36jztkuk7aw.cloudfront.net/sites/default/files/styles/tile_1_column/public/tile/image/A-116-03comp_0.jpg?itok=wdsieZ8x",
+      "name": "Atthepark",
+      "likes": 150,
+      "id": 2
+    },
+    {
+      "imageUrl": "https://sulliemedia2.files.wordpress.com/2015/01/am.png",
+      "name": "FavSpeech",
+      "likes": 150,
+      "id": 3
+    }
+  ]
+}
