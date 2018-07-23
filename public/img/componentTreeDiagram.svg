@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1888px" height="1175px" viewBox="0 0 1888 1175" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Component Tree Diagram</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Component-Tree-Diagram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <ellipse id="Oval" stroke="#979797" cx="920.5" cy="344" rx="178.5" ry="68"></ellipse>
+        <text id="App-or-index.js" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="36" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="869.616353" y="333">App or </tspan>
+            <tspan x="864.416471" y="376">index.js</tspan>
+        </text>
+        <rect id="Rectangle-14" stroke="#968B2A" fill="#FFF9B8" x="102" y="505" width="295" height="628" rx="8"></rect>
+        <rect id="Rectangle-14-Copy" stroke="#C21E11" fill="#FFB8B8" x="431" y="505" width="327" height="515" rx="8"></rect>
+        <rect id="Rectangle-14-Copy-2" stroke="#962A74" fill-opacity="0.622707201" fill="#DBB8FF" x="795" y="505" width="295" height="313" rx="8"></rect>
+        <rect id="Rectangle-14-Copy-3" stroke="#294F08" fill-opacity="0.622707201" fill="#D3FFB8" x="1143" y="505" width="295" height="464" rx="8"></rect>
+        <text id="Social-Metrics" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1267.37941" y="725">Social-</tspan>
+            <tspan x="1265.65941" y="748">Metrics</tspan>
+        </text>
+        <text id="Header" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1260.30235" y="654">Header</tspan>
+        </text>
+        <text id="Clips" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1275.29529" y="818">Clips</tspan>
+        </text>
+        <text id="Clip" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1283.88824" y="906">Clip</tspan>
+        </text>
+        <rect id="Rectangle-14-Copy-4" stroke="#A05A05" fill-opacity="0.622707201" fill="#FFD17D" x="1491" y="505" width="295" height="422" rx="8"></rect>
+        <ellipse id="Oval-3" stroke="#979797" cx="249.5" cy="561.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-8" stroke="#979797" cx="244.5" cy="716.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-13" stroke="#979797" cx="246.5" cy="639.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-14" stroke="#979797" cx="594.5" cy="643.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-15" stroke="#979797" cx="597.5" cy="737.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-16" stroke="#979797" cx="600.5" cy="828.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-9" stroke="#979797" cx="246.5" cy="804.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-10" stroke="#979797" cx="249.5" cy="893.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-11" stroke="#979797" cx="252.5" cy="980.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-12" stroke="#979797" cx="255.5" cy="1069.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy" stroke="#979797" cx="594.5" cy="561.5" rx="87.5" ry="33.5"></ellipse>
+        <path d="M735.5,340.5 L241.5,340.5" id="Line" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1641.5,337.5 L1100.5,337.5" id="Line-Copy" stroke="#979797" stroke-linecap="square"></path>
+        <ellipse id="Oval-3-Copy-2" stroke="#979797" cx="942.5" cy="564.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-17" stroke="#979797" cx="942.5" cy="647.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-18" stroke="#979797" cx="942.5" cy="737.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-3" stroke="#979797" cx="1290.5" cy="564.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-5" stroke="#979797" cx="1291.5" cy="727.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-19" stroke="#979797" cx="1290.5" cy="649.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-20" stroke="#979797" cx="1638.5" cy="642.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-21" stroke="#979797" cx="1642.5" cy="727.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-22" stroke="#979797" cx="1642.5" cy="812.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-6" stroke="#979797" cx="1291.5" cy="814.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-7" stroke="#979797" cx="1295.5" cy="902.5" rx="87.5" ry="33.5"></ellipse>
+        <ellipse id="Oval-3-Copy-4" stroke="#979797" cx="1638.5" cy="564.5" rx="87.5" ry="33.5"></ellipse>
+        <text id="Home" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="219.024235" y="568">Home</tspan>
+        </text>
+        <text id="FeedEntry" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="197.21753" y="725">FeedEntry</tspan>
+        </text>
+        <text id="Header" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="213.002353" y="650">Header</tspan>
+        </text>
+        <text id="Header-Copy" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="561.002353" y="654">Header</tspan>
+        </text>
+        <text id="AlertEntries" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="544.652706" y="748">AlertEntries</tspan>
+        </text>
+        <text id="Entry" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="578.137294" y="839">Entry</tspan>
+        </text>
+        <text id="FeedTitle" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="204.48553" y="813">FeedTitle</tspan>
+        </text>
+        <text id="FeedAudio" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="198.88153" y="902">FeedAudio</tspan>
+        </text>
+        <text id="FeedSocial" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="200.754589" y="989">FeedSocial</tspan>
+        </text>
+        <text id="FeedComments" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="193.524706" y="1075">FeedComments</tspan>
+        </text>
+        <text id="Alerts" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="566.690353" y="568">Alerts</tspan>
+        </text>
+        <text id="Upload-Audio" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="886.574706" y="570">Upload Audio</tspan>
+        </text>
+        <text id="Waveform-Header" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="871.135883" y="655">Waveform Header</tspan>
+        </text>
+        <text id="Record-Buttons" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="18" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="887.518824" y="747">Record Buttons</tspan>
+        </text>
+        <text id="Profile" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1265.49235" y="570">Profile</tspan>
+        </text>
+        <text id="Search" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1609.59235" y="570">Search</tspan>
+        </text>
+        <path d="M771.5,389.5 L588.5,437.5" id="Line-6" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1289.5,388.5 L1068.5,440.5" id="Line-6-Copy" stroke="#979797" stroke-linecap="square" transform="translate(1179.000000, 414.500000) scale(1, -1) translate(-1179.000000, -414.500000) "></path>
+        <path d="M935.5,417.5 L935.5,491.5" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M240.5,340.5 L240.5,503.5" id="Line-9" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1638.5,341.5 L1638.5,504.5" id="Line-9-Copy" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M588.5,503.5 L588.5,437.5" id="Line-10" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M1292.5,503.5 L1292.5,437.5" id="Line-10-Copy" stroke="#979797" stroke-linecap="square"></path>
+        <rect id="Rectangle-17" fill="#96BEFF" x="1143" y="123" width="330" height="93" rx="8"></rect>
+        <text id="Navigation" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="24" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1261.93059" y="168">Navigation</tspan>
+        </text>
+        <path d="M1147.5,211.5 L1044.5,291.5" id="Line-11" stroke="#979797" stroke-linecap="square"></path>
+        <text id="Header" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1608.30235" y="648">Header</tspan>
+        </text>
+        <text id="Searches" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1604.02647" y="733">Searches</tspan>
+        </text>
+        <text id="Search" font-family="HelveticaNeue-Light, Helvetica Neue" font-size="20" font-weight="300" letter-spacing="-0.4341177" fill="#000000">
+            <tspan x="1613.59235" y="818">Search</tspan>
+        </text>
+    </g>
+</svg>
