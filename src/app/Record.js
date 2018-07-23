@@ -60,11 +60,14 @@ export class Record extends Component {
     }
   }
 
-  test = () => {
-    this.setState(prevState => {
-      return {timerInMs: prevState.timerInMs + 1}
+  startTimer = () => {
+    const timerStartNow = new Date().getTime()
+    this.setState({
+      timerInMs: now
     });
-    console.log(this.state)
+    this.timeTicker = setInterval(() => {
+      this.setState({now: new Date().getTime()}, 100)
+    })
   }
 
   onPressStartCounter = async () => {
@@ -73,7 +76,7 @@ export class Record extends Component {
     });
     if (this.state.isRecording) {
       setInterval(() => {
-        this.test();
+        this.countUpTimer();
       }, 1)
     } else {
       console.log('noper')
