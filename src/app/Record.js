@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Image, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
 export class Record extends Component {
+  constructor() {
+    super();
+  }
+
   static navigationOptions = {
     tabBarLabel: 'Record',
     tabBarIcon: ({ tintColor }) => <Image source={require('./../../public/img/addRecordIcon.png')} style={{ width: 27, height: 27 }} />
   };
 
-  constructor() {
-    super();
-  }
+
   render() {
     return (
       <View>
@@ -19,7 +21,9 @@ export class Record extends Component {
         <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
           <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
-          <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+          <TouchableOpacity onPress={() => {alert('clicked')}}>
+            <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+          </TouchableOpacity>
           <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
         </View>
       </View>
