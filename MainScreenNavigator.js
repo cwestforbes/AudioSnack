@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createBottomTabNavigator, StackNavigator, NavigationActions } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, NavigationActions } from 'react-navigation';
 import { View, Text, Image, Button } from 'react-native';
 import { Profile } from './src/app/Profile';
 import { Search } from './src/app/Search';
@@ -9,7 +9,7 @@ import { Record } from './src/app/Record';
 import { EditProfile } from './src/app/EditProfile';
 import { BackBtn } from './src/app/BackBtn';
 
-const ProfileStack = StackNavigator({
+const ProfileStack = createStackNavigator({
   Profile: { screen: Profile },
   EditProfile: {
     screen: EditProfile,

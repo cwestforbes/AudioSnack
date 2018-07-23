@@ -4,11 +4,11 @@ import * as firebase from 'firebase';
 import { Image, StyleSheet, Button, Text, View, Alert, ActivityIndicator } from 'react-native';
 import { ImagePicker } from 'expo';
 import MainScreenNavigator from './MainScreenNavigator';
-import { createBottomTabNavigator, StackNavigator, NavigationActions } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator, NavigationActions } from 'react-navigation';
 import { SignUp } from './src/app/SignUp';
 import { SignIn } from './src/app/SignIn';
 
-const SignInStack = StackNavigator(
+const SignInStack = createStackNavigator(
   {
     SignUp: {
       screen: SignUp,
