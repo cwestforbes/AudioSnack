@@ -17,9 +17,7 @@ const ProfileStack = createStackNavigator({
       headerLeft: (
         <Button
           title="Cancel"
-          onPress={() => {
-            navigation.goBack();
-          }}
+          onPress={() => {navigation.goBack();}}
         />
       )
     })
