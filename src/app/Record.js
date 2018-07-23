@@ -45,8 +45,8 @@ export class Record extends Component {
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
             </TouchableOpacity>
           ) : ( <TouchableOpacity onPress={() => {alert('changeClicked')}}>
-                  <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }}>
-                    <Text>II</Text>
+                  <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
                   </ImageBackground>
                 </TouchableOpacity>)}
           <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
