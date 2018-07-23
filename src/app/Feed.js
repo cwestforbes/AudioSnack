@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   },
   feedContainer: {
     marginLeft: 16,
-    fontFamily: 'HelveticaNeue',
     marginBottom: 14
   }
 });
