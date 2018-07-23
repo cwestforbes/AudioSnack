@@ -6,6 +6,10 @@ export class Record extends Component {
     tabBarLabel: 'Record',
     tabBarIcon: ({ tintColor }) => <Image source={require('./../../public/img/addRecordIcon.png')} style={{ width: 27, height: 27 }} />
   };
+
+  constructor() {
+    super();
+  }
   render() {
     return (
       <View>
