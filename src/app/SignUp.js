@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Image, View, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert, ImagePickerIOS } from 'react-native';
+import { ImagePicker } from 'expo';
 import * as firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
 import { v4 } from 'uuid';
@@ -66,15 +67,14 @@ export class SignUp extends Component {
     });
   }
 
-  pickImage = () => {
-    ImagePickerIOS.openSelectDialog(
-      {},
-      imageUri => {
-        this.setState({ image: imageUri });
+  pickImage = async() => {
+    let result = await ImagePicker.launchImageLibraryAsync();
+    if (!result.cancelled) {
+        this.setState({ image: result.uri });
         console.log(this.state);
-      },
-      error => console.error(error)
-    );
+    } else {
+      Alert.alert(error);
+    }
   };
 
   render() {
