@@ -10,6 +10,7 @@ export class Profile extends Component {
       username: '',
       email: '',
       profileImgUrl: '',
+      clips: 0,
       fetchIsReady: false
     };
   }
@@ -49,6 +50,15 @@ export class Profile extends Component {
       );
   }
 
+  checkUserClips() {
+    let uid = firebase.auth().currentUser.uid;
+    if (firebase.database().ref('/clips/' + uid)) {
+      console.log('You have clips!');
+    } else {
+      console.log('you don\'t have clips' )
+    }
+  }
+
   downloadImgData(link) {
     let storageRef = firebase.storage().refFromURL(link);
     storageRef.getDownloadURL().then(
@@ -63,6 +73,7 @@ export class Profile extends Component {
 
   componentDidMount() {
     this.checkIfUserIsLoggedIn();
+    this.checkUserClips()
   }
 
   render() {
@@ -86,7 +97,7 @@ export class Profile extends Component {
                 <Text>Following</Text>
               </View>
               <View style={styles.socialText}>
-                <Text>3</Text>
+                <Text>{this.state.clips}</Text>
                 <Text>Clips</Text>
               </View>
             </View>
