@@ -4,19 +4,15 @@ import Expo, {Permissions} from 'expo';
 import {duration} from 'moment';
 
 const convertDurationToStr = (ms) => {
-  const hoursInMs = duration(ms).hours();
   const minutesInMs = duration(ms).minutes();
   const secondsInMs = duration(ms).seconds();
+  const msDuration = duration(ms).milliseconds();
 
-  let hourStr = '';
   let minuteStr = '';
   let secondStr = '';
+  let centisecondStr = '';
 
-  if (hoursInMs !== 0) {
-    hourStr = `${hoursInMs}`;
-  }
-
-  if (minutesInMs < 10) {
+  if (minutesInMs !== 0) {
     minuteStr = `0${minutesInMs}`;
   } else {
     minuteStr = `${minutesInMs}`
@@ -28,14 +24,22 @@ const convertDurationToStr = (ms) => {
     secondStr = `${secondsInMs}`
   }
 
-  return `${hourStr}:${minuteStr}:${secondStr}`;
+  if (msDuration < 100) {
+    centisecondStr = `0${Math.floor(msDuration / 10)}`;
+  } else {
+    centisecondStr = `${Math.floor(msDuration / 10)}`;
+  }
+
+  return `${minuteStr}:${secondStr}.${centisecondStr}`;
 };
 
+
 export class Record extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      isRecording: false
+      isRecording: false,
+      timerInMs: 0
     }
   }
 
@@ -56,19 +60,39 @@ export class Record extends Component {
     }
   }
 
+  test = () => {
+    this.setState(prevState => {
+      return {timerInMs: prevState.timerInMs + 1}
+    });
+    console.log(this.state)
+  }
+
+  onPressStartCounter = async () => {
+    await this.setState({
+      isRecording: true
+    });
+    if (this.state.isRecording) {
+      setInterval(() => {
+        this.test();
+      }, 1)
+    } else {
+      console.log('noper')
+    }
+  };
+
   render() {
     return (
       <View>
         <View>
-          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100 }}>0:00:00</Text>
+          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100 }}>{convertDurationToStr(this.state.timerInMs)}</Text>
         </View>
         <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
           <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
           {!this.state.isRecording ? (
             <TouchableOpacity
-              onPress={() => {this.setState({
-                isRecording: true});
+              onPress={() => {
+                this.onPressStartCounter();
                 console.log(this.state);
               }}>
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
