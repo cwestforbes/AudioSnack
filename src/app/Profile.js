@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, Button, ScrollView, Alert } from 'react-native';
-import { clips } from './../../clipData.json';
+// import { clips } from './../../clipData.json';
 import * as firebase from 'firebase';
 
 export class Profile extends Component {
@@ -14,6 +14,7 @@ export class Profile extends Component {
       following: 0,
       followers: 0,
       fetchIsReady: false,
+      clips: []
     };
   }
 
@@ -110,7 +111,7 @@ export class Profile extends Component {
           <View style={styles.yourClipsContainer}>
             <Text style={styles.yourClipsHeader}>Your Clips</Text>
             <View>
-              {clips.map(clip => (
+              {this.state.clips.map(clip => (
                 <View style={styles.clip} key={clip.id}>
                   <View style={styles.clipLeft}>
                     <Image source={{ uri: `${clip.imageUrl}` }} style={{ height: 50, width: 50 }} />
