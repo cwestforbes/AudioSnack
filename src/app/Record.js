@@ -39,7 +39,8 @@ export class Record extends Component {
     super(props);
     this.state = {
       isRecording: false,
-      timerInMs: 0
+      timerInMsStart: 0,
+      timerInMsElapsed: 0,
     }
   }
 
@@ -60,14 +61,23 @@ export class Record extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timeTicker)
+  }
+
   startTimer = () => {
-    const timerStartNow = new Date().getTime()
+    const currentStart = new Date().getTime();
     this.setState({
-      timerInMs: now
+      timerInMsStart: currentStart,
     });
     this.timeTicker = setInterval(() => {
-      this.setState({now: new Date().getTime()}, 100)
-    })
+      this.setState({ timerInMsElapsed: new Date().getTime()});
+    }, 10)
+  }
+
+  stopTimer = () => {
+    clearInterval(this.timeTicker);
+    this.setState({timerInMs: 0})
   }
 
   onPressStartCounter = async () => {
@@ -87,7 +97,8 @@ export class Record extends Component {
     return (
       <View>
         <View>
-          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100 }}>{convertDurationToStr(this.state.timerInMs)}</Text>
+          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr((this.state.timerInMsElapsed - this.state.timerInMsStart))}
+          </Text>
         </View>
         <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
@@ -95,16 +106,14 @@ export class Record extends Component {
           {!this.state.isRecording ? (
             <TouchableOpacity
               onPress={() => {
-                this.onPressStartCounter();
-                console.log(this.state);
+                this.startTimer();
+
               }}>
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
             </TouchableOpacity>
           ) : ( <TouchableOpacity
-                  onPress={() => {this.setState({
-                    isRecording: false});
-                    alert('Recording Stopped')
-                    console.log(this.state)
+                  onPress={() => {
+                    this.stopTimer();
                 }}>
                   <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
