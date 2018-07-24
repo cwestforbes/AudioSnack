@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, ImagePickerIOS, Image, Button } from 'react-native';
+import { v4 } from 'uuid';
 
 export class UploadImage extends Component {
   constructor() {
