@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text, TextInput } from 'react-native';
+import * as firebase from 'firebase';
 
 export class Search extends Component {
   static navigationOptions = {
@@ -11,7 +12,7 @@ export class Search extends Component {
     super(props);
     this.state = {
       search: '',
-      searchResults: [];
+      searchResults: [],
     }
   }
 
