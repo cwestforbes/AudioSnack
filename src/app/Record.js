@@ -210,10 +210,6 @@ export class Record extends Component {
     let storageRef = firebase.storage().ref().child(`coverArt/${coverArtId}`);
     storageRef.put(blob).then(result => {
       storageRef.getDownloadURL().then(coverArtUrl => {
-        console.log('nested')
-        let uid = firebase.auth().currentUser.uid;
-        let clipsRef = firebase.database().ref(`clips/${uid}`);
-        clipsRef.push({"coverArtUrl": coverArtUrl});
         this.setState({
           coverUri: coverArtUrl
         })
