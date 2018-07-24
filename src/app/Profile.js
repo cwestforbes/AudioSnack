@@ -124,7 +124,7 @@ export class Profile extends Component {
               </View>
               <View style={styles.socialText}>
                 <Text>{this.state.clips.length}</Text>
-                <Text>Clips</Text>
+                <Text>{this.state.clips.length === 1 ? 'Clip' : 'Clips'}</Text>
               </View>
             </View>
             <View style={styles.editProfile}>
