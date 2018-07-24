@@ -3,6 +3,8 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Button, ScrollView, Al
 // import { clips } from './../../clipData.json';
 import Expo, {Asset, Audio, FileSystem} from 'expo';
 import * as firebase from 'firebase';
+import AudioPlayer from 'react-native-play-audio';
+
 
 export class Profile extends Component {
   constructor(props) {
@@ -104,12 +106,10 @@ export class Profile extends Component {
   }
 
   onPressPlayClip = async audio => {
-    const soundObj = new Expo.Audio.Sound();
-    try {
-      alert(audio)
-    } catch (error) {
-      alert('error playing')
-    }
+    const url = `${audio}`;
+    AudioPlayer.prepare(url, () => {
+      AudioPlayer.play();
+    })
   }
 
   render() {
