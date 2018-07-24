@@ -58,11 +58,27 @@ export class Profile extends Component {
 
   checkUserClips() {
     let uid = firebase.auth().currentUser.uid;
-    if (firebase.database().ref('/clips/' + uid)) {
+    let userClips = firebase.database().ref('/clips/' + uid);
+    if (userClips) {
       console.log('You have clips!');
+      userClips.on('value', snapshot => {
+        this.updateClipsState(snapshot.val())
+      });
     } else {
       console.log('you don\'t have clips' )
     }
+  }
+
+  updateClipsState = async snapshot => {
+    let fetchedClipsArr = [];
+    for (keys in snapshot) {
+      let clipsObjs = snapshot[keys]
+      fetchedClipsArr.push(clipsObjs);
+    }
+    await this.setState({
+      clips: fetchedClipsArr
+    })
+    console.log(this.state.clips)
   }
 
   downloadImgData(link) {
@@ -118,11 +134,11 @@ export class Profile extends Component {
           <View style={styles.yourClipsContainer}>
             <Text style={styles.yourClipsHeader}>Your Clips</Text>
             <View>
-              {this.state.clips.map(clip => (
-                <View style={styles.clip} key={clip.id}>
+              {this.state.clips.map((clip, index) => (
+                <View style={styles.clip} key={index}>
                   <View style={styles.clipLeft}>
-                    <Image source={{ uri: `${clip.imageUrl}` }} style={{ height: 50, width: 50 }} />
-                    <Text style={styles.clipName}>{clip.name}</Text>
+                    <Image source={{ uri: `${clip.coverArtUrl}` }} style={{ height: 50, width: 50 }} />
+                    <Text style={styles.clipName}>{clip.clipTitle}</Text>
                   </View>
                   <View style={styles.likesContainer}>
                     <Image
