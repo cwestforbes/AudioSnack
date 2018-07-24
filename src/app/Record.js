@@ -183,7 +183,7 @@ export class Record extends Component {
         let clipsRef = firebase.database().ref(`clips/${uid}`);
         console.log(clipsRef);
         let values = {"coverArtUrl": this.state.coverUri, "clipAudioFileUrl": audioUrl, "clipTitle": this.state.clipTitle }
-        clipsRef.update(values);
+        clipsRef.push(values);
         alert('Success')
       },
       error => {
