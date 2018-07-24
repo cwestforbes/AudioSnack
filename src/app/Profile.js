@@ -128,7 +128,7 @@ export class Profile extends Component {
               </View>
             </View>
             <View style={styles.editProfile}>
-              <Button title="Edit Profile" color="#5D8586" />
+              <Button title="Edit Profile" color="#5D8586" onPress={() => {this.props.navigation.navigate('EditProfile')}} />
             </View>
           </View>
           <View style={styles.yourClipsContainer}>
