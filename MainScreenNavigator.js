@@ -8,11 +8,27 @@ import { Alerts } from './src/app/Alerts';
 import { Record } from './src/app/Record';
 import { EditProfile } from './src/app/EditProfile';
 import { BackBtn } from './src/app/BackBtn';
+import { ProfileView } from './src/app/ProfileView';
 
 const ProfileStack = createStackNavigator({
   Profile: { screen: Profile },
   EditProfile: {
     screen: EditProfile,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: (
+        <Button
+          title="Cancel"
+          onPress={() => {navigation.goBack();}}
+        />
+      )
+    })
+  }
+});
+
+const FindProfileStack = createStackNavigator({
+  Search: { screen: Search },
+  ProfileView: {
+    screen: ProfileView,
     navigationOptions: ({ navigation }) => ({
       headerLeft: (
         <Button
