@@ -165,6 +165,7 @@ export class Record extends Component {
       console.log('ERROR UNLOADING ASYNC')
     }
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
+    console.log(audioFile);
     alert(audioFile.uri);
 
     await this.setState({
@@ -176,13 +177,11 @@ export class Record extends Component {
     let audioName = v4();
     const response = await fetch(this.state.recordingUri);
     const blob = await response.blob();
-    let storageRef = firebase.storage().ref().child(`clips/${audioName}`);
+    let storageRef = firebase.storage().ref().child(`clips/${audioName}.caf`);
     storageRef.put(blob).then(result => {
       storageRef.getDownloadURL().then(audioUrl => {
-        console.log('nested')
         let uid = firebase.auth().currentUser.uid;
         let clipsRef = firebase.database().ref(`clips/${uid}`);
-        console.log(clipsRef);
         let values = {"coverArtUrl": this.state.coverUri, "clipAudioFileUrl": audioUrl, "clipTitle": this.state.clipTitle }
         clipsRef.push(values);
         alert('Success');
@@ -198,7 +197,6 @@ export class Record extends Component {
     let result = await ImagePicker.launchImageLibraryAsync();
     if (!result.cancelled) {
         await this.setState({ coverUri: result.uri });
-        console.log(this.state);
         this.uploadCoverArt();
     } else {
       Alert.alert(error);
@@ -268,7 +266,6 @@ export class Record extends Component {
                   isReadyToUpload: true
                 });
                 this.prepareForUpload();
-                console.log(this.state);
               }}>
               <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
             </TouchableOpacity>
