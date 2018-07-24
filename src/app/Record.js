@@ -150,6 +150,7 @@ export class Record extends Component {
     }
   }
 
+
   async prepareForUpload() {
     console.log('In prepare')
     this.setState({
@@ -160,10 +161,15 @@ export class Record extends Component {
     } catch (error) {
       console.log('ERROR UNLOADING ASYNC')
     }
-
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
+    await this.setState({
+      recordingUri: audioFile.uri
+    })
+  }
+
+  async uploadAudioFiles() {
     let audioName = v4();
-    const response = await fetch(audioFile.uri);
+    const response = await fetch(this.state.recordingUri);
     const blob = await response.blob();
     let storageRef = firebase.storage().ref().child(`clips/${audioName}`);
     storageRef.put(blob).then(result => {
