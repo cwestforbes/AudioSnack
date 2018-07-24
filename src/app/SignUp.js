@@ -118,9 +118,11 @@ export class SignUp extends Component {
             style={{ width: 300, height: 40, borderWidth: 1, borderColor: '#9f9f9f', borderRadius: 3, padding: 8 }}
           />
           <View style={{ marginTop: 30, width: 300 }}>
-            <TouchableOpacity style={styles.button} onPress={() => this.onPressReady()}>
-              <Text style={{ color: 'white', fontSize: 18 }}>Sign up</Text>
-            </TouchableOpacity>
+            {this.state.Email && this.state.Username && this.state.Password ? (
+              <TouchableOpacity style={styles.button} onPress={() => this.onPressReady()}>
+                <Text style={{ color: 'white', fontSize: 18 }}>Sign up</Text>
+              </TouchableOpacity>) : null
+            }
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 60 }}>
             <Text style={{ marginRight: 5 }}>Have an account?</Text>
