@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, Button, ScrollView, Alert } from 'react-native';
 // import { clips } from './../../clipData.json';
+import Expo, {Asset, Audio, FileSystem} from 'expo';
 import * as firebase from 'firebase';
 
 export class Profile extends Component {
@@ -102,6 +103,15 @@ export class Profile extends Component {
     this.checkUserClips()
   }
 
+  onPressPlayClip = async audio => {
+    const soundObj = new Expo.Audio.Sound();
+    try {
+      alert(audio)
+    } catch (error) {
+      alert('error playing')
+    }
+  }
+
   render() {
     if (this.state.fetchIsReady) {
       return (
@@ -137,7 +147,10 @@ export class Profile extends Component {
               {this.state.clips.map((clip, index) => (
                 <View style={styles.clip} key={index}>
                   <View style={styles.clipLeft}>
-                    <Image source={{ uri: `${clip.coverArtUrl}` }} style={{ height: 50, width: 50 }} />
+                    <TouchableOpacity
+                      onPress={() => {this.onPressPlayClip(clip.coverArtUrl)}}>
+                      <Image source={{ uri: `${clip.coverArtUrl}` }} style={{ height: 50, width: 50 }} />
+                    </TouchableOpacity>
                     <Text style={styles.clipName}>{clip.clipTitle}</Text>
                   </View>
                   <View style={styles.likesContainer}>
