@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import AudioPlayer from 'react-native-play-audio';
 
 
+
 export class Profile extends Component {
   constructor(props) {
     super(props);
@@ -32,12 +33,10 @@ export class Profile extends Component {
       profileImgUrl: _imageUrl,
       fetchIsReady: true
     })
-    console.log(this.state);
   };
 
   checkIfUserIsLoggedIn() {
     let uid = firebase.auth().currentUser.uid;
-    console.log(uid);
     return firebase
       .database()
       .ref('/users/' + uid)
@@ -47,7 +46,6 @@ export class Profile extends Component {
           let usernameData = (snapshot.val() && snapshot.val().username) || 'Anonymous';
           let emailData = (snapshot.val() && snapshot.val().email) || 'Anonymous';
           let imgData = (snapshot.val() && snapshot.val().profileImageUrl) || 'File not found';
-          console.log(imgData)
           if (usernameData && emailData && imgData) {
             this.updateProfile(usernameData, emailData, imgData);
             this.downloadImgData(imgData)
@@ -81,7 +79,6 @@ export class Profile extends Component {
     await this.setState({
       clips: fetchedClipsArr
     })
-    console.log(this.state.clips)
   }
 
   downloadImgData(link) {
@@ -91,7 +88,6 @@ export class Profile extends Component {
       let storageRef = firebase.storage().refFromURL(link);
       storageRef.getDownloadURL().then(
         url => {
-          console.log(url);
         },
         error => {
           Alert.alert(error.message);
@@ -105,11 +101,15 @@ export class Profile extends Component {
     this.checkUserClips()
   }
 
-  onPressPlayClip = async audio => {
-    const url = `${audio}`;
-    AudioPlayer.prepare(url, () => {
-      AudioPlayer.play();
-    })
+  onPressPlayClip = async (audio) => {
+    const soundObject = new Expo.Audio.Sound();
+    try {
+      await soundObject.loadAsync({uri: audio});
+      await soundObject.playAsync();
+      // Your sound is playing!
+    } catch (error) {
+      // An error occurred!
+    }
   }
 
   render() {
@@ -148,7 +148,7 @@ export class Profile extends Component {
                 <View style={styles.clip} key={index}>
                   <View style={styles.clipLeft}>
                     <TouchableOpacity
-                      onPress={() => {this.onPressPlayClip(clip.coverArtUrl)}}>
+                      onPress={() => {this.onPressPlayClip(clip.clipAudioFileUrl)}}>
                       <Image source={{ uri: `${clip.coverArtUrl}` }} style={{ height: 50, width: 50 }} />
                     </TouchableOpacity>
                     <Text style={styles.clipName}>{clip.clipTitle}</Text>
