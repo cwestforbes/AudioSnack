@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity, Alert, TextInput, Button } from 'react-native';
 import Expo, {Asset, Audio, FileSystem, Permissions} from 'expo';
 import {duration} from 'moment';
 import { v4 } from 'uuid';
@@ -47,6 +47,8 @@ export class Record extends Component {
       timerInMsElapsed: 0,
       isReadyToUpload: false,
       recordingUri: null,
+      isReadyToUpload: false,
+      coverUri: null
     }
   }
 
@@ -190,37 +192,70 @@ export class Record extends Component {
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
-    return (
-      <View>
+    if (!this.state.isReadyToUpload && !this.state.recordingUri) {
+      return (
         <View>
-          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr(timer)}
-          </Text>
-        </View>
-        <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
-          <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
-          {!this.state.isRecording ? (
-            <TouchableOpacity
+          <View>
+            <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr(timer)}
+            </Text>
+          </View>
+          <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
+            <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
+            {!this.state.isRecording ? (
+              <TouchableOpacity
+                onPress={() => {
+                  this.toggleTimer();
+                  this.onPressRecordButton();
+                }}>
+                <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+              </TouchableOpacity>
+            ) : ( <TouchableOpacity
               onPress={() => {
                 this.toggleTimer();
-                this.onPressRecordButton();
-            }}>
-              <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+              }}>
+              <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
+              </ImageBackground>
+            </TouchableOpacity>)}
+            <TouchableOpacity onPress={() => {
+                this.setState({
+                  isReadyToUpload: true
+                });
+                console.log(this.state);
+              }}>
+              <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
             </TouchableOpacity>
-          ) : ( <TouchableOpacity
-                  onPress={() => {
-                    this.toggleTimer();
-                    this.onPressRecordButton();
-                }}>
-                  <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
-                  </ImageBackground>
-                </TouchableOpacity>)}
-          <TouchableOpacity >
-            <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom: 40 }}>
+            <Button title="Tap here to choose a cover for your track" onPress={this.pickImage} />
+            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+              {this.state.image ? (
+                <Image style={{ width: 50, height: 50}} source={{ uri: this.state.image }} />
+              ) : (
+                <View style={{ width: 50, height: 50, borderWidth: 1, marginBottom: 20 }} />
+              )}
+              <TextInput style={{paddingLeft: 8, width: 120, height: 30 }} placeholder="Add a title" />
+            </View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={{color: 'white'}}>Share</Text>
+            </TouchableOpacity>
+        </View>
+      )
+    }
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#00a699',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 4,
+    width: '68%',
+  }
+});
