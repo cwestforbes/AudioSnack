@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Text, View, ImagePickerIOS, Image, Button } from 'react-native';
 import { v4 } from 'uuid';
+import * as firebase from 'firebase';
 
 export class UploadImage extends Component {
   constructor() {
     super();
     this.state = {
-      image: null
+      image: null,
+
     };
   }
 

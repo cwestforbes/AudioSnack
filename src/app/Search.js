@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Image, TextInput, Text } from 'react-native';
 import * as firebase from 'firebase';
 
 export class Search extends Component {
@@ -11,16 +11,35 @@ export class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
+      search: null,
       searchResults: [],
     }
   }
 
-  fetchUsersFromSearch() {
+  componentDidMount() {
+    this.fetchUsersFromSearch()
+  }
 
+  fetchUsersFromSearch = () => {
+    const getUsersObj = firebase.database().ref('/users');
+    getUsersObj.on('value', snapshot => {
+      this.updateSearchResultsState(snapshot.val());
+    });
+  }
+
+  updateSearchResultsState = snapshot => {
+    let arr = []
+    for (keys in snapshot) {
+      let users = snapshot[keys];
+      arr.push(users);
+    }
+    this.setState({
+      searchResults: arr
+    })
   }
 
   render() {
+    console.log(this.state)
     return (
       <View>
         <View style={styles.iosHeader} />
@@ -36,11 +55,25 @@ export class Search extends Component {
                  autoCapitalize="none"
                  autoCorrect={false}
                  onChangeText={input => {
-                   this.setState({search: input})
+                   this.setState({ search: input });
+                   console.log(this.state.search)
                  }}
                  value={this.state.search}
               />
             </View>
+          </View>
+        </View>
+        <View>
+          <View style={{ height: 30, width: 200, justifyContent: 'center'}}>
+            <Text>adfhasddafhas</Text>
+              {(this.state.search === null || this.state.search === '') ? null : this.state.searchResults
+                .filter(
+                 user =>`${user.username} ${user.email}`.toLowerCase().indexOf((this.state.search).toLowerCase()) >= 0)
+                .map(user => (
+                <View key={user.username} style={{marginTop: 60, height: 200}}>
+                  <Text>{user.username} {user.email}</Text>
+                </View>
+              ))}
           </View>
         </View>
       </View>
