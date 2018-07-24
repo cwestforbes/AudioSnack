@@ -10,9 +10,15 @@ export class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: ''
+      search: '',
+      searchResults: [];
     }
   }
+
+  fetchUsersFromSearch() {
+
+  }
+
   render() {
     return (
       <View>
