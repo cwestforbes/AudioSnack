@@ -105,6 +105,36 @@ export class Record extends Component {
     }
   };
 
+  // Thanks to https://github.com/expo/audio-recording-example/blob/master/App.js for code
+
+  startRecording async = () => {
+    if (this.sound !== null) {
+      await this.sound.unloadAsync();
+      this.sound.setOnPlaybackStatusUpdate(null);
+      this.sound = null;
+    }
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+    });
+    if (this.recording !== null) {
+      this.recording.setOnRecordingStatusUpdate(null);
+      this.recording = null;
+    }
+
+    const recording = new Audio.Recording();
+    await recording.prepareToRecordAsync(this.recordingSettings);
+    recording.setOnRecordingStatusUpdate(this.updateScreenForRecording);
+
+    this.recording = recording;
+    await this.recording.startAsync()
+    this.setState({
+      isLoading: false;
+    })
+
+  }
+
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
     return (
