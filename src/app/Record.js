@@ -48,7 +48,8 @@ export class Record extends Component {
       isReadyToUpload: false,
       recordingUri: null,
       isReadyToUpload: false,
-      coverUri: null
+      coverUri: null,
+      clipTitle: ''
     }
   }
 
@@ -153,7 +154,7 @@ export class Record extends Component {
   }
 
 
-  async prepareForUpload() {
+   prepareForUpload = async () => {
     console.log('In prepare')
     this.setState({
       isLoading: true,
@@ -164,12 +165,13 @@ export class Record extends Component {
       console.log('ERROR UNLOADING ASYNC')
     }
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
+
     await this.setState({
       recordingUri: audioFile.uri
     })
   }
 
-  async uploadAudioFiles() {
+  uploadAudioFiles = async() => {
     let audioName = v4();
     const response = await fetch(this.state.recordingUri);
     const blob = await response.blob();
@@ -179,7 +181,9 @@ export class Record extends Component {
         console.log('nested')
         let uid = firebase.auth().currentUser.uid;
         let clipsRef = firebase.database().ref(`clips/${uid}`);
-        clipsRef.push({"audioUrl": audioUrl});
+        console.log(clipsRef);
+        let values = {"coverArtUrl": this.state.coverUri, "clipAudioFileUrl": audioUrl, "clipTitle": this.state.clipTitle }
+        clipsRef.update(values);
         alert('Success')
       },
       error => {
@@ -191,12 +195,35 @@ export class Record extends Component {
   pickImage = async() => {
     let result = await ImagePicker.launchImageLibraryAsync();
     if (!result.cancelled) {
-        this.setState({ image: result.uri });
+        await this.setState({ coverUri: result.uri });
         console.log(this.state);
+        this.uploadCoverArt();
     } else {
       Alert.alert(error);
     }
   };
+
+  uploadCoverArt = async() => {
+    let coverArtId = v4();
+    const response = await fetch(this.state.coverUri);
+    const blob = await response.blob();
+    let storageRef = firebase.storage().ref().child(`coverArt/${coverArtId}`);
+    storageRef.put(blob).then(result => {
+      storageRef.getDownloadURL().then(coverArtUrl => {
+        console.log('nested')
+        let uid = firebase.auth().currentUser.uid;
+        let clipsRef = firebase.database().ref(`clips/${uid}`);
+        clipsRef.push({"coverArtUrl": coverArtUrl});
+        this.setState({
+          coverUri: coverArtUrl
+        })
+        alert('Success')
+      },
+      error => {
+        Alert.alert(error.message);
+      });
+    });
+  }
 
 
   render() {
@@ -231,6 +258,7 @@ export class Record extends Component {
                 this.setState({
                   isReadyToUpload: true
                 });
+                this.prepareForUpload();
                 console.log(this.state);
               }}>
               <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
@@ -243,14 +271,23 @@ export class Record extends Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom: 40 }}>
             <Button title="Tap here to choose a cover for your track" onPress={this.pickImage} />
             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
-              {this.state.image ? (
-                <Image style={{ width: 50, height: 50, marginBottom: 20}} source={{ uri: this.state.image }} />
+              {this.state.coverUri ? (
+                <Image style={{ width: 50, height: 50, marginBottom: 20}} source={{ uri: this.state.coverUri }} />
               ) : (
                 <View style={{ width: 50, height: 50, borderWidth: 1, marginBottom: 20 }} />
               )}
-              <TextInput style={{paddingLeft: 8, width: 180, height: 30 }} placeholder="Add a title" />
+              <TextInput
+                value={this.state.clipTitle}
+                onChangeText={input => {
+                  this.setState({ clipTitle: input });
+                  console.log(this.state);
+                }}
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={{paddingLeft: 8, width: 180, height: 30 }}
+                placeholder="Add a title" />
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => {this.uploadAudioFiles()}}>
               <Text style={{color: 'white'}}>Share</Text>
             </TouchableOpacity>
         </View>
