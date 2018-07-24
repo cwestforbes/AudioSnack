@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Image, View, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert, ImagePickerIOS } from 'react-native';
+import { ActivityIndicator, Image, View, StyleSheet, Text, TextInput, TouchableOpacity, Button, Alert } from 'react-native';
 import { ImagePicker } from 'expo';
 import * as firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
