@@ -95,16 +95,17 @@ export class Record extends Component {
 
 
   updateAppForRecording = status => {
-    this.setState({
-      isRecording: status.IsRecording
-    });
-  } else if (status.isDoneRecording) {
-    this.setState({
-      isRecording: false
-    });
-    if (!this.state.isLoading) {
-      this.startUploading()
-    }
+    if(status.canRecord) {
+      this.setState({
+        isRecording: status.IsRecording
+      });
+    } else if (status.isDoneRecording) {
+      this.setState({
+        isRecording: false
+      });
+    } if (!this.state.isLoading) {
+        this.startUploading()
+      }
   }
   // Thanks to https://github.com/expo/audio-recording-example/blob/master/App.js for code
 
@@ -135,7 +136,15 @@ export class Record extends Component {
     })
   }
 
-
+  onPressRecordButton = () => {
+    if (this.state.isRecording) {
+      this.setState({
+        isLoading: true
+      })
+    } else {
+      this.startRecording();
+    }
+  }
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
@@ -152,6 +161,7 @@ export class Record extends Component {
             <TouchableOpacity
               onPress={() => {
                 this.toggleTimer();
+                this.onPressRecordButton();
             }}>
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
             </TouchableOpacity>
