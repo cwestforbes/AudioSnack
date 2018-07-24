@@ -39,6 +39,7 @@ export class Record extends Component {
     this.recording = null,
     this.sound = null,
     this.state = {
+      isLoading: false,
       isRecording: false,
       timerInMsStart: 0,
       timerInMsElapsed: 0,
@@ -93,10 +94,17 @@ export class Record extends Component {
   }
 
 
-  updateScreenForRecording = status => {
+  updateAppForRecording = status => {
     this.setState({
-      isRecording:
-    })
+      isRecording: status.IsRecording
+    });
+  } else if (status.isDoneRecording) {
+    this.setState({
+      isRecording: false
+    });
+    if (!this.state.isLoading) {
+      this.startUploading()
+    }
   }
   // Thanks to https://github.com/expo/audio-recording-example/blob/master/App.js for code
 
@@ -125,8 +133,9 @@ export class Record extends Component {
     this.setState({
       isLoading: false
     })
-
   }
+
+
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
