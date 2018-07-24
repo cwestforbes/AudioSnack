@@ -6,8 +6,7 @@ import {duration} from 'moment';
 const convertDurationToStr = (ms) => {
   const minutesInMs = duration(ms).minutes();
   const secondsInMs = duration(ms).seconds();
-  const msDuration = duration(ms).milliseconds();
-
+  const msDuration =  duration(ms).milliseconds();
   let minuteStr = '';
   let secondStr = '';
   let centisecondStr = '';
@@ -65,14 +64,25 @@ export class Record extends Component {
     clearInterval(this.timeTicker)
   }
 
+  toggleTimer = () => {
+    if (!this.state.isRecording) {
+      this.setState({isRecording: true})
+      this.startTimer();
+    } else {
+      this.setState({isRecording: false})
+      this.stopTimer();
+    }
+  }
+
   startTimer = () => {
-    const currentStart = new Date().getTime();
+    const timerInMsElapsed = new Date().getTime();
     this.setState({
-      timerInMsStart: currentStart,
+      timerInMsStart: timerInMsElapsed,
+      timerInMsElapsed
     });
     this.timeTicker = setInterval(() => {
       this.setState({ timerInMsElapsed: new Date().getTime()});
-    }, 10)
+    }, 1)
   }
 
   stopTimer = () => {
@@ -94,10 +104,11 @@ export class Record extends Component {
   };
 
   render() {
+    const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
     return (
       <View>
         <View>
-          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr((this.state.timerInMsElapsed - this.state.timerInMsStart))}
+          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr(timer)}
           </Text>
         </View>
         <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
@@ -106,14 +117,13 @@ export class Record extends Component {
           {!this.state.isRecording ? (
             <TouchableOpacity
               onPress={() => {
-                this.startTimer();
-
-              }}>
+                this.toggleTimer();
+            }}>
               <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
             </TouchableOpacity>
           ) : ( <TouchableOpacity
                   onPress={() => {
-                    this.stopTimer();
+                    this.toggleTimer();
                 }}>
                   <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
