@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity, Alert } from 'react-native';
 import Expo, {Asset, Audio, FileSystem, Permissions} from 'expo';
 import {duration} from 'moment';
+import { v4 } from 'uuid';
+import * as firebase from 'firebase';
 
 const convertDurationToStr = (ms) => {
   const minutesInMs = duration(ms).minutes();
@@ -43,6 +45,8 @@ export class Record extends Component {
       isRecording: false,
       timerInMsStart: 0,
       timerInMsElapsed: 0,
+      isReadyToUpload: false,
+      recordingUri: null,
     }
   }
 
@@ -158,10 +162,25 @@ export class Record extends Component {
     }
 
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
-    this.setState({
-      recordingUri: audioFile
+    let audioName = v4();
+    const response = await fetch(audioFile.uri);
+    const blob = await response.blob();
+    let storageRef = firebase.storage().ref().child(`clips/${audioName}`);
+    storageRef.put(blob).then(result => {
+      storageRef.getDownloadURL().then(audioUrl => {
+        console.log('nested')
+        let uid = firebase.auth().currentUser.uid;
+        let clipsRef = firebase.database().ref(`clips/${uid}`);
+        clipsRef.push({"audioUrl": audioUrl});
+        alert('Success')
+      },
+      error => {
+        Alert.alert(error.message);
+      });
     });
   }
+
+
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
