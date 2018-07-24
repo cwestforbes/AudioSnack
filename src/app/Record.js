@@ -184,7 +184,8 @@ export class Record extends Component {
         console.log(clipsRef);
         let values = {"coverArtUrl": this.state.coverUri, "clipAudioFileUrl": audioUrl, "clipTitle": this.state.clipTitle }
         clipsRef.push(values);
-        alert('Success')
+        alert('Success');
+        this.recordPageReset();
       },
       error => {
         Alert.alert(error.message);
@@ -219,6 +220,17 @@ export class Record extends Component {
         Alert.alert(error.message);
       });
     });
+  }
+
+  recordPageReset = () => {
+    this.setState({
+      recordingUri: null,
+      coverUri: null,
+      clipTitle: '',
+      isReadyToUpload: false,
+      timerInMsStart: 0,
+      timerInMsElapsed: 0,
+    })
   }
 
 
@@ -283,7 +295,12 @@ export class Record extends Component {
                 style={{paddingLeft: 8, width: 180, height: 30 }}
                 placeholder="Add a title" />
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => {this.uploadAudioFiles()}}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.uploadAudioFiles();
+                this.props.navigation.navigate('Profile')
+              }}>
               <Text style={{color: 'white'}}>Share</Text>
             </TouchableOpacity>
         </View>
