@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity } from 'react-native';
-import Expo, {Permissions} from 'expo';
+import Expo, {Asset, Audio, FileSystem, Permissions} from 'expo';
 import {duration} from 'moment';
 
 const convertDurationToStr = (ms) => {
@@ -36,7 +36,7 @@ const convertDurationToStr = (ms) => {
 export class Record extends Component {
   constructor(props) {
     super(props);
-    this.recording: null,
+    this.recording = null,
     this.sound = null,
     this.state = {
       isRecording: false,
@@ -92,22 +92,15 @@ export class Record extends Component {
     this.setState({timerInMs: 0})
   }
 
-  onPressStartCounter = async () => {
-    await this.setState({
-      isRecording: true
-    });
-    if (this.state.isRecording) {
-      setInterval(() => {
-        this.countUpTimer();
-      }, 1)
-    } else {
-      console.log('noper')
-    }
-  };
 
+  updateScreenForRecording = status => {
+    this.setState({
+      isRecording:
+    })
+  }
   // Thanks to https://github.com/expo/audio-recording-example/blob/master/App.js for code
 
-  startRecording async = () => {
+  startRecording  = async () => {
     if (this.sound !== null) {
       await this.sound.unloadAsync();
       this.sound.setOnPlaybackStatusUpdate(null);
@@ -130,7 +123,7 @@ export class Record extends Component {
     this.recording = recording;
     await this.recording.startAsync()
     this.setState({
-      isLoading: false;
+      isLoading: false
     })
 
   }
