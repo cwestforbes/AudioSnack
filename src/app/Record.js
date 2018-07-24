@@ -36,6 +36,8 @@ const convertDurationToStr = (ms) => {
 export class Record extends Component {
   constructor(props) {
     super(props);
+    this.recording: null,
+    this.sound = null,
     this.state = {
       isRecording: false,
       timerInMsStart: 0,
