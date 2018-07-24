@@ -104,7 +104,7 @@ export class Record extends Component {
         isRecording: false
       });
     } if (!this.state.isLoading) {
-        this.startUploading()
+        this.prepareForUpload()
       }
   }
   // Thanks to https://github.com/expo/audio-recording-example/blob/master/App.js for code
@@ -140,12 +140,24 @@ export class Record extends Component {
 
   onPressRecordButton = () => {
     if (this.state.isRecording) {
-      this.setState({
-        isLoading: true
-      })
+      this.prepareForUpload();
     } else {
       this.startRecording();
     }
+  }
+
+  async prepareForUpload() {
+    console.log('In prepare')
+    this.setState({
+      isLoading: true,
+    });
+    try {
+      await this.recording.stopAndUnloadAsync();
+    } catch (error) {
+      console.log('ERROR UNLOADING ASYNC')
+    }
+
+    const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
   }
 
   render() {
@@ -170,6 +182,7 @@ export class Record extends Component {
           ) : ( <TouchableOpacity
                   onPress={() => {
                     this.toggleTimer();
+                    this.onPressRecordButton();
                 }}>
                   <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
