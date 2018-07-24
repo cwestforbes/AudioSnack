@@ -42,7 +42,8 @@ export class Record extends Component {
       isLoading: false,
       isRecording: false,
       timerInMsStart: 0,
-      timerInMsElapsed: 0
+      timerInMsElapsed: 0,
+      isReadyToUpload: false,
     }
   }
 
@@ -188,7 +189,9 @@ export class Record extends Component {
                     <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
                   </ImageBackground>
                 </TouchableOpacity>)}
-          <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
+          <TouchableOpacity>
+            <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
+          </TouchableOpacity>
         </View>
       </View>
     );
