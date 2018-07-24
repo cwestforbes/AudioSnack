@@ -44,6 +44,7 @@ export class Record extends Component {
       timerInMsStart: 0,
       timerInMsElapsed: 0,
       isReadyToUpload: false,
+      recordingUri: null
     }
   }
 
@@ -159,41 +160,48 @@ export class Record extends Component {
     }
 
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
+    this.setState({
+      recordingUri: audioFile
+    });
   }
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
-    return (
-      <View>
+    if (!this.state.isReadyToUpload)  {
+      return (
         <View>
-          <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr(timer)}
-          </Text>
-        </View>
-        <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
-          <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
-          {!this.state.isRecording ? (
-            <TouchableOpacity
-              onPress={() => {
-                this.toggleTimer();
-                this.onPressRecordButton();
-            }}>
-              <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+          <View>
+            <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 100}}>{convertDurationToStr(timer)}
+            </Text>
+          </View>
+          <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 50, marginBottom: 30 }}>
+            <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
+            {!this.state.isRecording ? (
+              <TouchableOpacity
+                onPress={() => {
+                  this.toggleTimer();
+                  this.onPressRecordButton();
+              }}>
+                <Image source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90 }} />
+              </TouchableOpacity>
+            ) : ( <TouchableOpacity
+                    onPress={() => {
+                      this.toggleTimer();
+                      this.onPressRecordButton();
+                  }}>
+                    <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
+                      <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>)}
+            <TouchableOpacity>
+              <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
             </TouchableOpacity>
-          ) : ( <TouchableOpacity
-                  onPress={() => {
-                    this.toggleTimer();
-                    this.onPressRecordButton();
-                }}>
-                  <ImageBackground source={require('./../../public/img/recordBtn.png')} style={{ height: 90, width: 90, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{color: 'white', fontSize: 46, fontWeight: 'bold'}}>II</Text>
-                  </ImageBackground>
-                </TouchableOpacity>)}
-          <TouchableOpacity>
-            <Image source={require('./../../public/img/yesBtn.png')} style={{ height: 70, width: 70 }} />
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+
+    }
   }
 }
