@@ -28,7 +28,7 @@ export class Profile extends Component {
       email: _email,
       profileImgUrl: _imageUrl,
       fetchIsReady: true
-    });
+    })
     console.log(this.state);
   };
 
@@ -43,9 +43,12 @@ export class Profile extends Component {
         snapshot => {
           let usernameData = (snapshot.val() && snapshot.val().username) || 'Anonymous';
           let emailData = (snapshot.val() && snapshot.val().email) || 'Anonymous';
-          let imgData = (snapshot.val() && snapshot.val().profileImageUrl) || 'Anonymous';
-          this.downloadImgData(imgData);
-          this.updateProfile(usernameData, emailData, imgData);
+          let imgData = (snapshot.val() && snapshot.val().profileImageUrl) || 'File not found';
+          console.log(imgData)
+          if (usernameData && emailData && imgData) {
+            this.updateProfile(usernameData, emailData, imgData);
+            this.downloadImgData(imgData)
+          }
         },
         error => {
           Alert.alert(error.message);
@@ -63,15 +66,19 @@ export class Profile extends Component {
   }
 
   downloadImgData(link) {
-    let storageRef = firebase.storage().refFromURL(link);
-    storageRef.getDownloadURL().then(
-      url => {
-        console.log(url);
-      },
-      error => {
-        Alert.alert(error.message);
-      }
-    );
+    if (link === 'File not found') {
+      alert('you don\'t have an image')
+    } else {
+      let storageRef = firebase.storage().refFromURL(link);
+      storageRef.getDownloadURL().then(
+        url => {
+          console.log(url);
+        },
+        error => {
+          Alert.alert(error.message);
+        }
+      );
+    }
   }
 
   componentDidMount() {
@@ -100,7 +107,7 @@ export class Profile extends Component {
                 <Text>Following</Text>
               </View>
               <View style={styles.socialText}>
-                <Text>{this.state.clips}</Text>
+                <Text>{this.state.clips.length}</Text>
                 <Text>Clips</Text>
               </View>
             </View>
