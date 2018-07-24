@@ -69,7 +69,12 @@ export class Search extends Component {
               .filter(
                user =>`${user.username}`.toLowerCase().indexOf((this.state.search).toLowerCase()) >= 0)
               .map((user, index) => (
-                <TouchableOpacity key={index} onPress={() => {console.log(user.username)}}>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    console.log(user.username);
+                    this.props.navigation.navigate('ProfileView')
+                  }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
                     <Image source={{ uri: `${user.profileImageUrl}` }} style={{ height: 55, width: 55, borderRadius: 55 / 2, marginRight: 12 }} />
                     <Text style={{ fontWeight: 'bold' }}>{user.username}</Text>
