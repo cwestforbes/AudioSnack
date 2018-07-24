@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Button, ScrollView, Al
 // import { clips } from './../../clipData.json';
 import Expo, {Asset, Audio, FileSystem} from 'expo';
 import * as firebase from 'firebase';
-import AudioPlayer from 'react-native-play-audio';
 
 
 
