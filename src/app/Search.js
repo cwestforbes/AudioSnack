@@ -6,6 +6,13 @@ export class Search extends Component {
     tabBarLabel: 'Search',
     tabBarIcon: ({ tintColor }) => <Image source={require('./../../public/img/searchIcon.png')} style={{ width: 25, height: 25 }} />
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ''
+    }
+  }
   render() {
     return (
       <View>
@@ -16,7 +23,16 @@ export class Search extends Component {
               <View style={styles.imgContainer}>
                 <Image source={require('./../../public/img/search.png')} style={{ width: 15, height: 15, padding: 10 }} />
               </View>
-              <TextInput style={styles.input} />
+              <TextInput
+                 style={styles.input}
+                 placeholder="Search for user"
+                 autoCapitalize="none"
+                 autoCorrect={false}
+                 onChangeText={input => {
+                   this.setState({search: input})
+                 }}
+                 value={this.state.search}
+              />
             </View>
           </View>
         </View>
