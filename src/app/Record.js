@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity, Alert, TextInput, Button } from 'react-native';
-import Expo, {Asset, Audio, FileSystem, Permissions} from 'expo';
+import Expo, {Asset, Audio, FileSystem, Permissions, ImagePicker} from 'expo';
 import {duration} from 'moment';
 import { v4 } from 'uuid';
 import * as firebase from 'firebase';
@@ -188,6 +188,15 @@ export class Record extends Component {
     });
   }
 
+  pickImage = async() => {
+    let result = await ImagePicker.launchImageLibraryAsync();
+    if (!result.cancelled) {
+        this.setState({ image: result.uri });
+        console.log(this.state);
+    } else {
+      Alert.alert(error);
+    }
+  };
 
 
   render() {
@@ -235,11 +244,11 @@ export class Record extends Component {
             <Button title="Tap here to choose a cover for your track" onPress={this.pickImage} />
             <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
               {this.state.image ? (
-                <Image style={{ width: 50, height: 50}} source={{ uri: this.state.image }} />
+                <Image style={{ width: 50, height: 50, marginBottom: 20}} source={{ uri: this.state.image }} />
               ) : (
                 <View style={{ width: 50, height: 50, borderWidth: 1, marginBottom: 20 }} />
               )}
-              <TextInput style={{paddingLeft: 8, width: 120, height: 30 }} placeholder="Add a title" />
+              <TextInput style={{paddingLeft: 8, width: 180, height: 30 }} placeholder="Add a title" />
             </View>
             <TouchableOpacity style={styles.button}>
               <Text style={{color: 'white'}}>Share</Text>
