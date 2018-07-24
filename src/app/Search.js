@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TextInput, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, TextInput, Text, ScrollView, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 
 export class Search extends Component {
@@ -69,10 +69,12 @@ export class Search extends Component {
               .filter(
                user =>`${user.username}`.toLowerCase().indexOf((this.state.search).toLowerCase()) >= 0)
               .map(user => (
-                <View key={user.username} style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
-                  <Image source={{ uri: `${user.profileImageUrl}` }} style={{ height: 55, width: 55, borderRadius: 55 / 2, marginRight: 12 }} /> 
-                  <Text style={{ fontWeight: 'bold' }}>{user.username}</Text>
-                </View>
+                <TouchableOpacity key={user.profileImageUrl} onPress={() => {console.log(user.username)}}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
+                    <Image source={{ uri: `${user.profileImageUrl}` }} style={{ height: 55, width: 55, borderRadius: 55 / 2, marginRight: 12 }} />
+                    <Text style={{ fontWeight: 'bold' }}>{user.username}</Text>
+                  </View>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
