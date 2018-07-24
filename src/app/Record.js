@@ -42,7 +42,7 @@ export class Record extends Component {
       isLoading: false,
       isRecording: false,
       timerInMsStart: 0,
-      timerInMsElapsed: 0,
+      timerInMsElapsed: 0
     }
   }
 
@@ -119,6 +119,8 @@ export class Record extends Component {
       allowsRecordingIOS: true,
       interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
       playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
     });
     if (this.recording !== null) {
       this.recording.setOnRecordingStatusUpdate(null);
