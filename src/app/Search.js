@@ -82,6 +82,9 @@ export class Search extends Component {
                     await this.lookUp(user.email);
                     this.props.navigation.navigate('ProfileView', {
                       userID: this.state.clickeduserId,
+                      user: user.username,
+                      userImage: user.profileImageUrl
+
                     })
                   }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
