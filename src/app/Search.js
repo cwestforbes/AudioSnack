@@ -14,6 +14,7 @@ export class Search extends Component {
     this.state = {
       search: null,
       searchResults: null,
+      clickeduserId: null
     }
   }
 
@@ -29,16 +30,21 @@ export class Search extends Component {
   }
 
   updateSearchResultsState = snapshot => {
-    console.log('this is the snapshot')
-    console.log(snapshot)
-    let dataWithId = Object.values(snapshot).map((el, index, array) => {
-      el.userId = array;
+    let dataWithId = Object.values(snapshot).map((el) => {
       return el;
     })
     this.setState({
       searchResults: dataWithId
     })
-    console.log(this.state)
+  }
+
+  lookUp = mailVal => {
+    const ref = firebase.database().ref('users');
+    ref.orderByChild("email").equalTo(mailVal).on("child_added", snapshot => {
+      this.setState({
+        clickeduserId: snapshot.key,
+      });
+    });
   }
 
   render() {
@@ -58,7 +64,6 @@ export class Search extends Component {
                  autoCorrect={false}
                  onChangeText={input => {
                    this.setState({ search: input });
-                   console.log(this.state.search)
                  }}
                  value={this.state.search}
               />
@@ -73,10 +78,10 @@ export class Search extends Component {
               .map((user, index) => (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => {
-                    console.log(user);
+                  onPress={async () => {
+                    await this.lookUp(user.email);
                     this.props.navigation.navigate('ProfileView', {
-                      userId: user.uid
+                      userID: this.state.clickeduserId,
                     })
                   }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
