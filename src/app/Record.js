@@ -234,7 +234,7 @@ export class Record extends Component {
   }
 
   coverArtImageCompress = img => {
-    const compressedImg = ImageManipulator.manipulate(img, [], {compress: 0.6});
+    const compressedImg = ImageManipulator.manipulate(img, [{height: 60}], {compress: 0.6});
     return compressedImg.uri;
   }
 
