@@ -95,15 +95,9 @@ export class ProfileView extends Component {
   }
 
 
-  lookUp = (mailVal) => {
-    var ref = firebase.database().ref('users');
-    ref.orderByChild("email").equalTo(mailVal).on("child_added", function(snapshot) {
-      console.log(snapshot.key);
-    });
-  }
-
   componentDidMount() {
-    // this.checkIfUserIsLoggedIn(userId);
+    const uId = this.props.navigation.getParam('userID');
+    this.checkIfUserIsLoggedIn(uId);
     // this.checkUserClips()
   }
 
@@ -119,9 +113,6 @@ export class ProfileView extends Component {
   }
 
   render() {
-    const emailUrl = this.props.navigation.getParam('email');
-    console.log(emailUrl);
-    this.lookUp(emailUrl)
     if (this.state.fetchIsReady) {
       return (
         <ScrollView style={{ backgroundColor: 'white' }}>
