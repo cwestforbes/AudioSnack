@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, ImageBackground, Text, TouchableOpacity, Alert, TextInput, Button } from 'react-native';
-import Expo, {Asset, Audio, FileSystem, Permissions, ImagePicker} from 'expo';
+import Expo, {Asset, ImageManipulator, Audio, FileSystem, Permissions, ImagePicker} from 'expo';
 import {duration} from 'moment';
 import { v4 } from 'uuid';
 import * as firebase from 'firebase';
@@ -234,7 +234,7 @@ export class Record extends Component {
   }
 
   coverArtImageCompress = img => {
-    const compressedImg = ImageManipulator.manipulate(imgCopy, [], {compress: 0.7});
+    const compressedImg = ImageManipulator.manipulate(img, [], {compress: 0.6});
     return compressedImg.uri;
   }
 
