@@ -26,7 +26,11 @@ const ProfileStack = createStackNavigator({
 });
 
 const FindProfileStack = createStackNavigator({
-  Search: { screen: Search },
+  Search: {screen: Search,
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  },
   ProfileView: {
     screen: ProfileView,
     navigationOptions: ({ navigation }) => ({
@@ -45,13 +49,18 @@ ProfileStack.navigationOptions = {
   tabBarIcon: ({ tintColor }) => <Image source={require('./public/img/profileIcon.png')} style={{ width: 25, height: 25 }} />
 };
 
+FindProfileStack.navigationOptions = {
+  tabBarLabel: 'Search',
+  tabBarIcon: ({ tintColor }) => <Image source={require('./public/img/searchIcon.png')} style={{ width: 25, height: 25 }} />
+};
+
 const MainScreenNavigator = createBottomTabNavigator(
   {
     Tab1: { screen: Feed },
     Tab2: { screen: Alerts },
     Tab3: { screen: Record },
     Tab4: { screen: ProfileStack },
-    Tab5: { screen: Search }
+    Tab5: { screen: FindProfileStack }
   },
   {
     tabBarPosition: 'bottom',

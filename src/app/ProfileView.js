@@ -6,7 +6,9 @@ import * as firebase from 'firebase';
 
 
 
-export class Profile extends Component {
+
+
+export class ProfileView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,11 +31,11 @@ export class Profile extends Component {
     })
   };
 
-  checkIfUserIsLoggedIn() {
-    let uid = firebase.auth().currentUser.uid;
+  checkIfUserIsLoggedIn(propUser) {
+
     return firebase
       .database()
-      .ref('/users/' + uid)
+      .ref('/users/' + propUser)
       .once('value')
       .then(
         snapshot => {
@@ -91,8 +93,7 @@ export class Profile extends Component {
   }
 
   componentDidMount() {
-    this.checkIfUserIsLoggedIn();
-    this.checkUserClips()
+
   }
 
   onPressPlayClip = async (audio) => {
@@ -107,6 +108,10 @@ export class Profile extends Component {
   }
 
   render() {
+    const user = this.props.navigation.getParam('userId');
+    console.log(user);
+    this.checkIfUserIsLoggedIn(user);
+    this.checkUserClips()
     if (this.state.fetchIsReady) {
       return (
         <ScrollView style={{ backgroundColor: 'white' }}>
@@ -132,7 +137,9 @@ export class Profile extends Component {
               </View>
             </View>
             <View style={styles.editProfile}>
-              <Button title="Edit Profile" color="#5D8586" onPress={() => {this.props.navigation.navigate('EditProfile')}} />
+              <TouchableOpacity style={{ backgroundColor: '#00a699', padding: 10, alignItems: 'center',borderRadius: 4}}>
+                <Text style={{color: 'white'}}>Follow</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.yourClipsContainer}>
