@@ -164,7 +164,7 @@ export class Profile extends Component {
             </View>
           </View>
           <View style={{ flex: 1, alignItems: 'center', marginTop: 20 }}>
-            <TouchableOpacity onPress={this.onPressSignOut}>
+            <TouchableOpacity onPress={this.onPressSignOut} style={{paddingBottom: 20}}>
               <Text>Sign out</Text>
             </TouchableOpacity>
           </View>
