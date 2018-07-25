@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Image, TextInput, Text, ScrollView, TouchableOpacity } from 'react-native';
 import * as firebase from 'firebase';
 
+
 export class Search extends Component {
   static navigationOptions = {
     tabBarLabel: 'Search',
@@ -12,7 +13,7 @@ export class Search extends Component {
     super(props);
     this.state = {
       search: null,
-      searchResults: [],
+      searchResults: null,
     }
   }
 
@@ -28,20 +29,21 @@ export class Search extends Component {
   }
 
   updateSearchResultsState = snapshot => {
-    let arr = []
-    for (keys in snapshot) {
-      let users = snapshot[keys];
-      arr.push(users);
-    }
-    this.setState({
-      searchResults: arr
+    console.log('this is the snapshot')
+    console.log(snapshot)
+    let dataWithId = Object.values(snapshot).map((el, index, array) => {
+      el.userId = array;
+      return el;
     })
+    this.setState({
+      searchResults: dataWithId
+    })
+    console.log(this.state)
   }
 
   render() {
-    console.log(this.state)
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'white'}}>
         <View style={styles.iosHeader} />
         <View style={styles.searchHeader}>
           <View style={styles.searchContainer}>
@@ -72,8 +74,10 @@ export class Search extends Component {
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    console.log(user.username);
-                    this.props.navigation.navigate('ProfileView')
+                    console.log(user);
+                    this.props.navigation.navigate('ProfileView', {
+                      userId: user.uid
+                    })
                   }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}>
                     <Image source={{ uri: `${user.profileImageUrl}` }} style={{ height: 55, width: 55, borderRadius: 55 / 2, marginRight: 12 }} />
