@@ -70,8 +70,8 @@ export class Search extends Component {
             </View>
           </View>
         </View>
-        <ScrollView>
-          <View style={{width: '100%'}}>
+        <ScrollView style={{backgroundColor:'white', height: '100%'}}>
+          <View style={{width: '100%', backgroundColor: 'white', height: '100%'}}>
             {(this.state.search === null || this.state.search === '') ? null : this.state.searchResults
               .filter(
                user =>`${user.username}`.toLowerCase().indexOf((this.state.search).toLowerCase()) >= 0)
