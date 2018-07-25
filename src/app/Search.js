@@ -43,7 +43,7 @@ export class Search extends Component {
 
   render() {
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
+      <View style={{backgroundColor: 'white'}}>
         <View style={styles.iosHeader} />
         <View style={styles.searchHeader}>
           <View style={styles.searchContainer}>
@@ -65,7 +65,7 @@ export class Search extends Component {
             </View>
           </View>
         </View>
-        <View>
+        <ScrollView>
           <View style={{width: '100%'}}>
             {(this.state.search === null || this.state.search === '') ? null : this.state.searchResults
               .filter(
@@ -86,8 +86,8 @@ export class Search extends Component {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
