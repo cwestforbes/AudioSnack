@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Image, Text } from 'react-native';
-import { alerts } from './../../alertsData';
 
 export class Alerts extends Component {
+  constructor () {
+    super();
+    this.state = {
+      alerts: []
+    }
+  }
   static navigationOptions = {
     tabBarLabel: 'Alerts',
     tabBarIcon: ({ tintColor }) => <Image source={require('./../../public/img/alertIcon.png')} style={{ width: 25, height: 25 }} />
@@ -17,7 +22,7 @@ export class Alerts extends Component {
           <Text style={styles.headerText}>Following</Text>
           <Text style={styles.headerText}>You</Text>
         </View>
-        {alerts.map(alerts => (
+        {this.state.alerts.map(alerts => (
           <View
             key={alerts.alert.id}
             style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#e5e5e5', padding: 10 }}
