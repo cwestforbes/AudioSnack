@@ -18,16 +18,22 @@ export class Feed extends Component {
   }
   render() {
     return (
-      <ScrollView style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
-        {feed.map(entry => (
-          <View key={entry.id} style={styles.feedContainer}>
-            <FeedTitle entry={entry} />
-            <Image source={require('./../../public/img/waveform.png')} style={{ width: 300, height: 20, marginBottom: 8 }} />
-            <FeedSocial entry={entry} />
-            <FeedComments entry={entry} />
-          </View>
-        ))}
-      </ScrollView>
+      <View>
+        <View style={styles.iosHeader} />
+        <View style={styles.header}>
+          <Text style={styles.headerText}>AUDIOAPP</Text>
+        </View>
+        <ScrollView style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
+          {feed.map(entry => (
+            <View key={entry.id} style={styles.feedContainer}>
+              <FeedTitle entry={entry} />
+              <Image source={require('./../../public/img/waveform.png')} style={{ width: 300, height: 20, marginBottom: 8 }} />
+              <FeedSocial entry={entry} />
+              <FeedComments entry={entry} />
+            </View>
+          ))}
+        </ScrollView>
+    </View>
     );
   }
 }
@@ -44,7 +50,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
   },
   headerText: {
     fontSize: 24,
