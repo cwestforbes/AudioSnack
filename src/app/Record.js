@@ -232,6 +232,11 @@ export class Record extends Component {
     })
   }
 
+  imageCompress = async img => {
+    const compressedImg = await ImageManipulator.manipulate(imgCopy, [], {compress: 0.7});
+    return compressedImg.uri;
+  }
+
 
   render() {
     const timer = this.state.timerInMsElapsed - this.state.timerInMsStart;
@@ -242,7 +247,7 @@ export class Record extends Component {
             <Text style={{ marginTop: 60, textAlign: 'center', fontSize: 62, fontWeight: '200', marginBottom: 60}}>{convertDurationToStr(timer)}
             </Text>
           </View>
-          <Image source={require('./../../public/img/hold-waveform.png')} style={{ height: 200, width: 380 }} />
+          <Image source={require('./../../public/img/hold-waveform.jpg')} style={{ height: 200, width: 380 }} />
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 30, marginBottom: 30 }}>
             <Image source={require('./../../public/img/cancelBtn.png')} style={{ height: 70, width: 70 }} />
             {!this.state.isRecording ? (
