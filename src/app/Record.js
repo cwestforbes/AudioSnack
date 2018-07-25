@@ -205,7 +205,8 @@ export class Record extends Component {
 
   uploadCoverArt = async() => {
     let coverArtId = v4();
-    const response = await fetch(this.state.coverUri);
+    const compressedImage = await this.coverArtImageCompress(this.state.coverUri);
+    const response = await fetch(compressedImage);
     const blob = await response.blob();
     let storageRef = firebase.storage().ref().child(`coverArt/${coverArtId}`);
     storageRef.put(blob).then(result => {
@@ -232,8 +233,8 @@ export class Record extends Component {
     })
   }
 
-  imageCompress = async img => {
-    const compressedImg = await ImageManipulator.manipulate(imgCopy, [], {compress: 0.7});
+  coverArtImageCompress = img => {
+    const compressedImg = ImageManipulator.manipulate(imgCopy, [], {compress: 0.7});
     return compressedImg.uri;
   }
 
