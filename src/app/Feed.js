@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { feed } from './../../feedData.json';
 import FeedComments from './FeedComments';
 import FeedTitle from './FeedTitle';
 import FeedSocial from './FeedSocial';
@@ -13,7 +12,7 @@ export class Feed extends Component {
   constructor(props) {
     super();
     this.state = {
-      feed: feed
+      feed: []
     };
   }
   render() {
@@ -24,7 +23,7 @@ export class Feed extends Component {
           <Text style={styles.headerText}>AUDIOAPP</Text>
         </View>
         <ScrollView style={{ backgroundColor: 'white', paddingTop: 20, paddingBottom: 20 }}>
-          {feed.map(entry => (
+          {this.state.feed.map(entry => (
             <View key={entry.id} style={styles.feedContainer}>
               <FeedTitle entry={entry} />
               <Image source={require('./../../public/img/waveform.png')} style={{ width: 300, height: 20, marginBottom: 8 }} />
