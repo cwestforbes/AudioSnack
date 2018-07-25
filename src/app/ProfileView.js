@@ -98,7 +98,7 @@ export class ProfileView extends Component {
   componentDidMount() {
     const uId = this.props.navigation.getParam('userID');
     this.checkIfUserIsLoggedIn(uId);
-    // this.checkUserClips()
+    this.checkUserClips()
   }
 
   onPressPlayClip = async (audio) => {
@@ -144,7 +144,7 @@ export class ProfileView extends Component {
             </View>
           </View>
           <View style={styles.yourClipsContainer}>
-            <Text style={styles.yourClipsHeader}>Your Clips</Text>
+            <Text style={styles.yourClipsHeader}>Clips</Text>
             <View>
               {this.state.clips.map((clip, index) => (
                 <View style={styles.clip} key={index}>
@@ -167,9 +167,6 @@ export class ProfileView extends Component {
             </View>
           </View>
           <View style={{ flex: 1, alignItems: 'center', marginTop: 20 }}>
-            <TouchableOpacity onPress={this.onPressSignOut}>
-              <Text>Sign out</Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       );
