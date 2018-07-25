@@ -94,7 +94,6 @@ export class ProfileView extends Component {
     }
   }
 
-
   componentDidMount() {
     const uId = this.props.navigation.getParam('userID');
     this.checkIfUserIsLoggedIn(uId);
@@ -110,6 +109,29 @@ export class ProfileView extends Component {
     } catch (error) {
       // An error occurred!
     }
+  }
+
+  handleFollow = () => {
+    console.log('Follow user')
+    if (!this.props.navigation.getParam('userID')) {
+      alert('error')
+    }
+
+    let userId = this.props.navigation.getParam('userID');
+    console.log(userId);
+    let currentLoggedInUser = firebase.auth().currentUser.uid;
+    let ref = firebase.database().ref().child(`following/${currentLoggedInUser}`)
+    let setValues = {};
+    setValues[userId] = 1
+    ref.update(setValues)
+    .then(
+      () => {
+        alert('following ')
+      },
+      error => {
+        Alert.alert(error.message);
+      }
+    );
   }
 
   render() {
@@ -138,7 +160,7 @@ export class ProfileView extends Component {
               </View>
             </View>
             <View style={styles.editProfile}>
-              <TouchableOpacity style={{ backgroundColor: '#00a699', padding: 10, alignItems: 'center',borderRadius: 4}}>
+              <TouchableOpacity onPress={this.handleFollow} style={{ backgroundColor: '#00a699', padding: 10, alignItems: 'center',borderRadius: 4}}>
                 <Text style={{color: 'white'}}>Follow</Text>
               </TouchableOpacity>
             </View>
