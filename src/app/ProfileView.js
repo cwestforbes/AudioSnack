@@ -32,10 +32,12 @@ export class ProfileView extends Component {
   };
 
   checkIfUserIsLoggedIn(propUser) {
-
+    const currentUser = firebase.auth().currentUser.uid;
+    let userId;
+    userId = currentUser === propUser ? currentUser : propUser;
     return firebase
       .database()
-      .ref('/users/' + propUser)
+      .ref('/users/' + userId)
       .once('value')
       .then(
         snapshot => {
@@ -92,8 +94,17 @@ export class ProfileView extends Component {
     }
   }
 
-  componentDidMount() {
 
+  lookUp = (mailVal) => {
+    var ref = firebase.database().ref('users');
+    ref.orderByChild("email").equalTo(mailVal).on("child_added", function(snapshot) {
+      console.log(snapshot.key);
+    });
+  }
+
+  componentDidMount() {
+    // this.checkIfUserIsLoggedIn(userId);
+    // this.checkUserClips()
   }
 
   onPressPlayClip = async (audio) => {
@@ -108,10 +119,9 @@ export class ProfileView extends Component {
   }
 
   render() {
-    const user = this.props.navigation.getParam('userId');
-    console.log(user);
-    this.checkIfUserIsLoggedIn(user);
-    this.checkUserClips()
+    const emailUrl = this.props.navigation.getParam('email');
+    console.log(emailUrl);
+    this.lookUp(emailUrl)
     if (this.state.fetchIsReady) {
       return (
         <ScrollView style={{ backgroundColor: 'white' }}>
