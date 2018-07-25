@@ -16,7 +16,8 @@ export class ProfileView extends Component {
       email: '',
       profileImgUrl: '',
       clips: 0,
-      follow: false,
+      following: 0,
+      followers: 0,
       fetchIsReady: false,
       clips: []
     };
@@ -46,7 +47,7 @@ export class ProfileView extends Component {
           let imgData = (snapshot.val() && snapshot.val().profileImageUrl) || 'File not found';
           if (usernameData && emailData && imgData) {
             this.updateProfile(usernameData, emailData, imgData);
-            this.downloadImgData(imgData)
+            // this.downloadImgData(imgData)
           }
         },
         error => {
@@ -79,20 +80,6 @@ export class ProfileView extends Component {
     })
   }
 
-  downloadImgData(link) {
-    if (link === 'File not found') {
-      alert('you don\'t have an image')
-    } else {
-      let storageRef = firebase.storage().refFromURL(link);
-      storageRef.getDownloadURL().then(
-        url => {
-        },
-        error => {
-          Alert.alert(error.message);
-        }
-      );
-    }
-  }
 
   componentDidMount() {
     const uId = this.props.navigation.getParam('userID');
