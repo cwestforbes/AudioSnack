@@ -56,9 +56,11 @@ export class ProfileView extends Component {
       );
   }
 
-  checkUserClips() {
-    let uid = firebase.auth().currentUser.uid;
-    let userClips = firebase.database().ref('/clips/' + uid);
+  checkUserClips(propUser) {
+    const currentUser = firebase.auth().currentUser.uid;
+    let userId;
+    userId = currentUser === propUser ? currentUser : propUser;
+    let userClips = firebase.database().ref('/clips/' + userId);
     if (userClips) {
       console.log('You have clips!');
       userClips.on('value', snapshot => {
@@ -76,15 +78,15 @@ export class ProfileView extends Component {
       fetchedClipsArr.push(clipsObjs);
     }
     await this.setState({
-      clips: fetchedClipsArr
+      clips: fetchedClipsArr,
+      fetchIsReady: true
     })
   }
 
 
   componentDidMount() {
     const uId = this.props.navigation.getParam('userID');
-    this.checkIfUserIsLoggedIn(uId);
-    this.checkUserClips()
+    this.checkUserClips(uId)
   }
 
   onPressPlayClip = async (audio) => {
@@ -122,15 +124,19 @@ export class ProfileView extends Component {
   }
 
   render() {
+    const {navigation} = this.props;
+    const userName = navigation.getParam('user', 'no user found')
+    const userProfileImage = navigation.getParam('userImage', 'no user found');
+    console.log(userProfileImage);
     if (this.state.fetchIsReady) {
       return (
         <ScrollView style={{ backgroundColor: 'white' }}>
           <View style={styles.header}>
-            <Text style={styles.headerText}>{this.state.username}</Text>
+            <Text style={styles.headerText}>{userName}</Text>
           </View>
           <View>
             <View style={styles.imageContainer}>
-              <Image source={{ uri: this.state.profileImgUrl }} style={{ width: 128, height: 128, borderRadius: 128 / 2 }} />
+              <Image source={{ uri: userProfileImage }} style={{ width: 128, height: 128, borderRadius: 128 / 2 }} />
             </View>
             <View style={styles.social}>
               <View style={styles.socialText}>
@@ -160,7 +166,7 @@ export class ProfileView extends Component {
                   <View style={styles.clipLeft}>
                     <TouchableOpacity
                       onPress={() => {this.onPressPlayClip(clip.clipAudioFileUrl)}}>
-                      <Image source={{ uri: `${clip.coverArtUrl}` }} style={{ height: 50, width: 50 }} />
+                      <Image source={{ uri: `${userProfileImage}` }} style={{ height: 50, width: 50 }} />
                     </TouchableOpacity>
                     <Text style={styles.clipName}>{clip.clipTitle}</Text>
                   </View>
