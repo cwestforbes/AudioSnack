@@ -135,17 +135,19 @@ export class SignUp extends Component {
     } else {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom: 40 }}>
+          <Text style={{marginBottom: 20}}>Tap square to upload image</Text>
           {this.state.image ? (
-            <Image style={{ width: 100, height: 100, borderRadius: 100 / 2 }} source={{ uri: this.state.image }} />
+            <Image style={{ width: 100, height: 100, borderRadius: 100 / 2, marginBottom: 20 }} source={{ uri: this.state.image }} />
           ) : (
-            <View style={{ width: 100, height: 100, borderWidth: 1 }} />
+            <TouchableOpacity onPress={this.pickImage} style={{marginBottom: 20}}>
+              <View style={{ width: 100, height: 100, borderWidth: 1 }}></View>
+            </TouchableOpacity>
           )}
-          <Button title="Choose Your Avatar" onPress={this.pickImage} />
           <TouchableOpacity style={styles.button} onPress={() => this.onPressUpload()}>
             <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
           </TouchableOpacity>
         </View>
-      );
+      )
     }
   }
 }
