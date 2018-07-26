@@ -109,7 +109,6 @@ export class ProfileView extends Component {
 
     if (!this.state.isFollowing) {
       let userId = this.props.navigation.getParam('userID');
-      console.log(userId);
       let currentLoggedInUser = firebase.auth().currentUser.uid;
       let ref = firebase.database().ref().child(`following/${currentLoggedInUser}`)
       let setValues = {};
@@ -117,7 +116,7 @@ export class ProfileView extends Component {
       ref.update(setValues)
       .then(
         () => {
-          alert('following ')
+          console.log('following ')
         },
         error => {
           Alert.alert(error.message);
@@ -127,7 +126,16 @@ export class ProfileView extends Component {
         isFollowing: true
       })
     } else {
-
+      if (ref === undefined) {
+        console.log('error')
+      }
+      let userId = this.props.navigation.getParam('userID');
+      let currentLoggedInUser = firebase.auth().currentUser.uid;
+      let ref = firebase.database().ref().child(`following/${currentLoggedInUser}/${userId}`);
+      ref.remove();
+      this.setState({
+        isFollowing: false
+      })
     }
 
   }
