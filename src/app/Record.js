@@ -66,7 +66,7 @@ export class Record extends Component {
     const { Permissions } = Expo;
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
     if (status !== 'granted') {
-      alert('Audio Recording enabled');
+      console.log('Audio Recording enabled');
     }
   }
 
@@ -155,7 +155,6 @@ export class Record extends Component {
 
 
    prepareForUpload = async () => {
-    console.log('In prepare')
     this.setState({
       isLoading: true,
     });
@@ -166,7 +165,6 @@ export class Record extends Component {
     }
     const audioFile = await FileSystem.getInfoAsync(this.recording.getURI());
     console.log(audioFile);
-    alert(audioFile.uri);
 
     await this.setState({
       recordingUri: audioFile.uri
@@ -184,7 +182,6 @@ export class Record extends Component {
         let clipsRef = firebase.database().ref(`clips/${uid}`);
         let values = {"coverArtUrl": this.state.coverUri, "clipAudioFileUrl": audioUrl, "clipTitle": this.state.clipTitle }
         clipsRef.push(values);
-        alert('Success');
         this.recordPageReset();
       },
       error => {
@@ -214,7 +211,7 @@ export class Record extends Component {
         this.setState({
           coverUri: coverArtUrl
         })
-        alert('Success')
+        console.log('success')
       },
       error => {
         Alert.alert(error.message);
@@ -233,8 +230,8 @@ export class Record extends Component {
     })
   }
 
-  coverArtImageCompress = img => {
-    const compressedImg = ImageManipulator.manipulate(img, [{height: 60}], {compress: 0.6});
+  coverArtImageCompress = async img => {
+    const compressedImg = await ImageManipulator.manipulate(img, [{resize: {height: 75}}], {compress: 0.7, base64: undefined});
     return compressedImg.uri;
   }
 
@@ -281,13 +278,15 @@ export class Record extends Component {
     } else {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingBottom: 40 }}>
-            <Button title="Tap here to choose a cover for your track" onPress={this.pickImage} />
-            <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+            <TouchableOpacity  onPress={this.pickImage}>
               {this.state.coverUri ? (
-                <Image style={{ width: 50, height: 50, marginBottom: 20}} source={{ uri: this.state.coverUri }} />
+                <Image style={{ width: 75, height: 75, marginBottom: 20}} source={{ uri: this.state.coverUri }} />
               ) : (
-                <View style={{ width: 50, height: 50, borderWidth: 1, marginBottom: 20 }} />
+                <View style={{ width: 75, height: 75, borderWidth: 1, marginBottom: 20 }} />
               )}
+            </TouchableOpacity>
+            <View>
+
               <TextInput
                 value={this.state.clipTitle}
                 onChangeText={input => {
@@ -296,7 +295,7 @@ export class Record extends Component {
                 }}
                 autoCapitalize="none"
                 autoCorrect={false}
-                style={{paddingLeft: 8, width: 180, height: 30 }}
+                style={{paddingLeft: 8, width: 180, height: 30, marginBottom: 20 }}
                 placeholder="Add a title" />
             </View>
             <TouchableOpacity
