@@ -19,7 +19,8 @@ export class ProfileView extends Component {
       following: 0,
       followers: 0,
       fetchIsReady: false,
-      clips: []
+      clips: [],
+      isFollowing: false,
     };
   }
 
@@ -106,21 +107,29 @@ export class ProfileView extends Component {
       alert('error')
     }
 
-    let userId = this.props.navigation.getParam('userID');
-    console.log(userId);
-    let currentLoggedInUser = firebase.auth().currentUser.uid;
-    let ref = firebase.database().ref().child(`following/${currentLoggedInUser}`)
-    let setValues = {};
-    setValues[userId] = 1
-    ref.update(setValues)
-    .then(
-      () => {
-        alert('following ')
-      },
-      error => {
-        Alert.alert(error.message);
-      }
-    );
+    if (!this.state.isFollowing) {
+      let userId = this.props.navigation.getParam('userID');
+      console.log(userId);
+      let currentLoggedInUser = firebase.auth().currentUser.uid;
+      let ref = firebase.database().ref().child(`following/${currentLoggedInUser}`)
+      let setValues = {};
+      setValues[userId] = 1
+      ref.update(setValues)
+      .then(
+        () => {
+          alert('following ')
+        },
+        error => {
+          Alert.alert(error.message);
+        }
+      );
+      this.setState({
+        isFollowing: true
+      })
+    } else {
+
+    }
+
   }
 
   render() {
@@ -154,7 +163,12 @@ export class ProfileView extends Component {
             </View>
             <View style={styles.editProfile}>
               <TouchableOpacity onPress={this.handleFollow} style={{ backgroundColor: '#00a699', padding: 10, alignItems: 'center',borderRadius: 4}}>
-                <Text style={{color: 'white'}}>Follow</Text>
+                {!this.state.isFollowing ? (
+                  <Text style={{color: 'white'}}>Follow</Text>
+                ) : (
+                  <Text style={{color: 'white'}}>Unfollow</Text>
+                )
+              }
               </TouchableOpacity>
             </View>
           </View>
