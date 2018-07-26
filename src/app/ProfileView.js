@@ -125,7 +125,7 @@ export class ProfileView extends Component {
       this.setState({
         isFollowing: true
       })
-    } else {-
+    } else {
       if (ref === undefined) {
         console.log('error')
       }
