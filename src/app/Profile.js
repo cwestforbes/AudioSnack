@@ -82,7 +82,7 @@ export class Profile extends Component {
 
   downloadImgData(link) {
     if (link === 'File not found') {
-      alert('you don\'t have an image')
+      console.log('you don\'t have an image')
     } else {
       let storageRef = firebase.storage().refFromURL(link);
       storageRef.getDownloadURL().then(

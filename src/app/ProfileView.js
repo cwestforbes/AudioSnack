@@ -170,14 +170,17 @@ export class ProfileView extends Component {
               </View>
             </View>
             <View style={styles.editProfile}>
+              {!this.state.isFollowing ? (
               <TouchableOpacity onPress={this.handleFollow} style={{ backgroundColor: '#00a699', padding: 10, alignItems: 'center',borderRadius: 4}}>
-                {!this.state.isFollowing ? (
                   <Text style={{color: 'white'}}>Follow</Text>
-                ) : (
-                  <Text style={{color: 'white'}}>Unfollow</Text>
+              </TouchableOpacity>
+                ): (
+                   <TouchableOpacity onPress={this.handleFollow} style={{ backgroundColor: 'white', padding: 10, alignItems: 'center',borderRadius: 4, borderWidth: 1}}>
+                     <Text style={{color: 'black'}}>Unfollow</Text>
+                  </TouchableOpacity>
                 )
               }
-              </TouchableOpacity>
+
             </View>
           </View>
           <View style={styles.yourClipsContainer}>
